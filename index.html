@@ -16,7 +16,7 @@
     <header>
       <div class="container">
         <h1>Dulanism.github.io</h1>
-        <h2>Technical Documentation (Test Page)</h2>
+        <h2>Documentation &quot;Mini-festo&quot;</h2>
 
         <section id="downloads">
           <a href="https://github.com/dulanism" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
@@ -26,37 +26,341 @@
 
     <div class="container">
       <section id="main_content">
-        <h3>
-<a name="welcome-to-dulani-wallaces-github-pages-landing-page" class="anchor" href="#welcome-to-dulani-wallaces-github-pages-landing-page"><span class="octicon octicon-link"></span></a>Welcome to Dulani Wallace's GitHub Pages Landing Page.</h3>
+        <h1>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p><strong>based on material by Anthony Scopatz</strong></p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>Just like version control and testing, documenting your code is the most
+important thing you can do as a software developer. As we have seen in
+previous sessions with other tools, good documentation is a sublime
+experience that should permeate your code.</p>
+
+<p>Documentation is important because it is <a href="http://blip.tv/pycon-us-videos-2009-2010-2011/pycon-2011-writing-great-%0Adocumentation-4899042">the only way that 90% of
+people will ever interact with you or your
+code</a>.
+In fact, it is the only way that scales up; there are only so many
+emails that you can write.</p>
+
+<p>What is disturbing is that documentation is a forgotten after thought
+for most developers. It turns out that being able to write software and
+being able to write in your primary spoken language are different
+skills. Luckily, we are academics so it is in our nature to publish /
+write. We have no excuse for bad documentation.</p>
+
+<h2>
+<a name="the-many-stages-of-documentation" class="anchor" href="#the-many-stages-of-documentation"><span class="octicon octicon-link"></span></a>The Many Stages of Documentation</h2>
+
+<ol>
+<li> Code Comments</li>
+<li> API Documentation</li>
+<li> Auto-Documentation</li>
+<li> Self-Documenting Code</li>
+<li> Readmes</li>
+<li> User Guides</li>
+<li> Developer Guides</li>
+</ol><h2>
+<a name="code-comments" class="anchor" href="#code-comments"><span class="octicon octicon-link"></span></a>Code Comments</h2>
+
+<p>Every language has a special character (or two) that indicate(s) to the
+parser, compiler, or interpreter that whatever comes after or between
+these characters should be ignored. This allows the author to write
+annotate and explain the code that they are writing <em>right at the point
+that they are writing it!</em> This is especially helpful if something
+weird, obtuse, or obscure is about to happen because it gives the author
+a chance to explain themselves to future developers (often themselves in
+1, 2, 6 months).</p>
+
+<p>The best part is that you can put literally <em>anything</em> in comments:
+publication citations, ASCII art, messages to lost loves, and threats to
+your collaborators.</p>
+
+<p>In Python, the comment character is the hash symbol <code>#</code>. The following
+example shows how you might help explain a toaster:</p>
+
+<p>In[ ]:</p>
+
+<pre><code>def toast(slices, toastiness, msg=None):
+    # make sure the toaster has the right setting
+    toastiness = int(toastiness) if 0 &lt; toastiness else 5
+
+    print "Engage the bread warming!"
+    for slice in slices:
+        slice.toast(toastiness)
+
+    # log the message, making a default if needed
+    if msg is None:
+        msg = "Toasted to level {}".format(toastiness)
+    logging.info(msg)
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>However, it is certainly possible to over-document your code with
+comments. Comments should never simply repeat what the code itself is
+doing. The goal is to strike the right balance. The appropriate ratio
+changes with language. (Typically higher level languages have greater
+functionality per line and so have more comments.) Try to avoid the
+following:</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<p>In[ ]:</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<pre><code># init a to 0
+a = 0
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+# make b 'a string'
+b = 'a string'
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+# Add one to a
+a = a + 1
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+# stopping excessive comments
+self.fall_on_sword()
+</code></pre>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h2>
+<a name="api-documentation" class="anchor" href="#api-documentation"><span class="octicon octicon-link"></span></a>API Documentation</h2>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>The application programming interface (API) is the definition of the
+protocol that two pieces of code may use to interact with one another.
+Consider the case of functions. All functions have a function signature
+that specifies how many arguments they accept and their return values.
+This signature along with the module name and function name is the API.
+(The function object/pointer itself is the implementation and is
+independent of the abstract API.)</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Just because you have an argument list, however, does not imply that the
+meaning of the arguments is known. For example:</p>
+
+<p>In[ ]:</p>
+
+<pre><code>def f(a, b=10):
+    # ...
+    return
+</code></pre>
+
+<p>We know that <code>f()</code> accepts two argument <code>a</code> and <code>b</code> and that <code>b</code> should
+probably be an integer. But what does <code>f()</code> actually do? What do these
+arguments mean in this context?</p>
+
+<p>Python allows the user to define API documentation right at the
+function, class, module, or variable definition. Every Python object may
+have an <code>__doc__</code> attribute that is a string representation of the API
+docs. This is known as a <em>docstring</em>.
+<a href="http://www.python.org/dev/peps/pep-0257/">PEP257</a> describes the
+conventions for docstrings. The most important of these is that simple
+things should have simple docstrings.</p>
+
+<p>Right below a definition, if the first non-comment, non-whitespace line
+is an unassigned string literal, then this string is automatically
+loaded in as the docstring. It is this docstring that is then read by the
+<code>help()</code> built-in or the <code>?</code> in IPython.</p>
+
+<p>In[ ]:</p>
+
+<pre><code>def mean(numlist):
+    """Computes the mean of a list of numbers."""
+    try:
+        total = sum(numlist)
+        length = len(numlist)
+    except ValueError:
+        print "The number list was not a list of numbers."
+    except:
+        print "There was a problem evaluating the number list."
+    return total/length
+
+
+def fib(n):
+    """Determines the nth Fibonacci number where n is 
+    a non-negative integer.
+    """
+    if n &lt; 0 or int(n) != n:
+        return NotImplemented
+    elif n == 0 or n == 1:
+        return n
+    else:
+        return fib(n - 1) + fib(n - 2)
+
+print help(mean)
+print fib.__doc__
+</code></pre>
+
+<p>Most Python docstrings are written in a markup language called
+<a href="http://sphinx.pocoo.org/rest.html">reStructuredText</a> (rST). It is
+designed to be easy to read, extensible, and provide enough
+natural-looking syntax to be able to render nicely. For example, our
+toaster docstring might look like:</p>
+
+<p>In[ ]:</p>
+
+<pre><code>def toast(slices, toastiness, msg=None):
+    """Toast some bread.
+
+    Parameters
+    ----------
+    slices : sequence of instance of partial bread
+        Slices to toast to toastiness level
+    toastiness : int
+        The desired toaster setting
+    msg : str, optional
+        A message for the toaster's usage log.
+
+    """
+    # make sure the toaster has the right setting
+    toastiness = int(toastiness) if 0 &lt; toastiness else 5
+
+    print "Engage the bread warming!"
+    for slice if slices:
+        slice.toast(toastiness)
+
+    # log the message, making a default if needed
+    if msg is None:
+        msg = "Toasted to level {}".format(toastiness)
+    logging.info(msg)
+</code></pre>
+
+<h2>
+<a name="auto-documentation" class="anchor" href="#auto-documentation"><span class="octicon octicon-link"></span></a>Auto-Documentation</h2>
+
+<p>Automatic documentation is the powerful concept that the comments and
+docstrings that the developer has already written can be scraped from
+the code base and placed on a website or into API documentation. This
+significantly reduces the overhead of having to write and maintain many
+documents that contain effectively the same information.</p>
+
+<p>Probably the three most popular auto-doc projects are
+<a href="http://www.oracle.com/technetwork/java/javase/documentation/index-%0Ajsp-135444.html">javadoc</a>
+for Java, <a href="http://www.stack.nl/%7Edimitri/doxygen/">Doxygen</a> for most
+compiled languages, and <a href="http://sphinx.pocoo.org/">sphinx</a> for Python.</p>
+
+<p><strong>Example:</strong> Let's try to make some documentation using Doxygen and the example
+file <code>multilevel_solver.py</code>.</p>
+
+<h2>
+<a name="exercise" class="anchor" href="#exercise"><span class="octicon octicon-link"></span></a>Exercise</h2>
+
+<p>You can build the Doxygen documentation by making a stub Doxygen file for your
+python code. In the directory in which your code resides</p>
+
+<pre><code> doxygen -g doc_example
+</code></pre>
+
+<p>Now you have a Doxygen template called doc_example. Open the doc_example file.
+There are many entries you can edit. The ones we're going to worry about here:</p>
+
+<p>1) Let's change the project name</p>
+
+<pre><code>  PROJECT_NAME           = "Multilevel Solver"
+</code></pre>
+
+<p>2) Tell Doxygen what files to use</p>
+
+<pre><code>  INPUT                  =  "multilevel_solver.py"
+</code></pre>
+
+<p>3) Tell it to optimize for Python</p>
+
+<pre><code>  OPTIMIZE_OUTPUT_JAVA   = YES
+</code></pre>
+
+<p>Information about formatting Doxygen comments for Python can be found
+<a href="http://www.stack.nl/%7Edimitri/doxygen/manual/docblocks.html#pythonblocks">here</a></p>
+
+<p>Let's build what we've got now and check it out</p>
+
+<pre><code> doxygen doc_example
+ cd html
+ google-chrome index.html
+</code></pre>
+
+<p>Add some additional Doxygen formatted comments to the functions in the
+<code>multilevel_solver.py</code> module. Then,
+using Doxygen, generate a website that auto-documents this module.</p>
+
+<h2>
+<a name="self-documenting-code" class="anchor" href="#self-documenting-code"><span class="octicon octicon-link"></span></a>Self-Documenting Code</h2>
+
+<p>Much like in testing where you can simply write perfect code the first
+time, there is an analogous philosophy is documentation. This is the
+philosophy of <a href="http://c2.com/cgi/wiki?SelfDocumentingCode">self-documenting
+code</a>. This ethos makes the
+claim that it is often possible to write code in such a way that new
+readers can understand what the code does simply by reading it.
+Therefore, no extra documentation is required. It is all there in the
+code itself.</p>
+
+<p>While there are obvious pitfalls with this approach (assumed knowledge
+on the reader's behalf, unavoidable complexities, etc.) there are some
+merits. By having meaningful naming conventions and structure it does
+become possible to infer a lot about a code just by glancing at it.
+Coding standards come from the same desire to have readable software.</p>
+
+<p>However using this documentation strategy exclusively is <em>highly</em>
+inadvisable.</p>
+
+<h2>
+<a name="readmes" class="anchor" href="#readmes"><span class="octicon octicon-link"></span></a>Readmes</h2>
+
+<p>The omnipresent <code>README</code> file is typically a plain text file that sits
+next to the code. They typically may contain markup but are often quite
+terse. The point of a readme file is to provide only the most basic of
+information to the user / developer.</p>
+
+<p>Readme files are so common that GitHub will render and display the
+readme file for all directories whenever you are browsing a source tree.
+Even Linux itself has a readme:</p>
+
+<blockquote>
+<p>Linux kernel release 3.x <a href="https://www.kernel.org/pub/linux/kernel/README">https://www.kernel.org/pub/linux/kernel/README</a></p>
+
+<p>These are the release notes for Linux version 3. Read them carefully,
+as they tell you what this is all about, explain how to install the
+kernel, and what to do if something goes wrong.</p>
+
+<p>WHAT IS LINUX?</p>
+
+<p>Linux is a clone of the operating system Unix, written from scratch
+by Linus Torvalds with assistance from a loosely-knit team of
+hackers across the Net. It aims towards POSIX and Single UNIX
+Specification compliance.</p>
+
+<p>It has all the features you would expect in a modern fully-fledged
+Unix, including true multitasking, virtual memory, shared libraries,
+demand loading, shared copy-on-write executables, proper memory
+management, and multistack networking including IPv4 and IPv6.</p>
+
+<p>It is distributed under the GNU General Public License - see the
+accompanying COPYING file for more details.</p>
+
+<p>...</p>
+</blockquote>
+
+<h2>
+<a name="users-guides" class="anchor" href="#users-guides"><span class="octicon octicon-link"></span></a>User's Guides</h2>
+
+<p>The next level of documentation are user's guides. These often take the
+form of books or pdfs that aim to explain top level architecture and
+functionality to possibly novice users. Such documents are extremely
+helpful for bringing in new members to the community, going in depth
+into the theory (math, biology, physics, chemistry, engineering), and as
+a reference manual for advanced users and developers. However because of
+their high level nature, you typically have to wait until the code has
+stabilized to be able to write a good comprehensive user's guide.</p>
+
+<p><strong>Examples:</strong>
+<a href="http://flash.uchicago.edu/site/flashcode/user_support/flash4b_ug.pdf">FLASH</a>,
+<a href="http://docs.scipy.org/doc/numpy/user/">NumPy</a>.</p>
+
+<h2>
+<a name="developer-guides" class="anchor" href="#developer-guides"><span class="octicon octicon-link"></span></a>Developer Guides</h2>
+
+<p>Developer guides are very similar to user's guides except that they
+assume a basic mastery of the project. They are typically for people who
+want to <em>become</em> developers on a project rather than for existing
+developers. They are probably most important for code projects that have
+plugin architectures and where the line between user and developer is
+less well defined.</p>
+
+<p><strong>Examples:</strong> <a href="http://developer.android.com/guide/index.html">Android</a>,
+<a href="http://docs.python.org/devguide/">Python</a>.</p>
       </section>
     </div>
 
